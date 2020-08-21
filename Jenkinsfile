@@ -74,7 +74,7 @@ node {
 
     stage('Sonar'){
     	try {
-        	sh "mvn sonar:sonar -Dsonar.host.url=http://51.137.24.134/debjyoti/sonarqube -Dsonar.login=6dc849b78986460b2f597f9b36352dcf9a8af8ec"
+        	sh "mvn sonar:sonar -Dsonar.host.url=http://52.143.7.186/debjyoti/sonarqube -Dsonar.login=b8cd1599456c1b6b3d1d80b9dd90edf1770f427c"
 		
 		def searchResults = jiraJqlSearch jql: "project = SONA AND resolution = Unresolved", site: 'JIRA'
 		def issues = searchResults.data.issues
