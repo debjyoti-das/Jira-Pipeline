@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jira-config-332488
+  labels:
+    app: jira-config-332488
+data:
+  JVM_MINIMUM_MEMORY: 2048m
+  JVM_MAXIMUM_MEMORY: 2048m
+  ATL_PROXY_NAME: 51.137.24.134
+  ATL_PROXY_PORT: '80'
+  ATL_TOMCAT_CONTEXTPATH: /debjyoti/jira

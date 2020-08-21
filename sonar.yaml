@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sonar-332488
+  name: sonar-332488
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonar-332488
+  template:
+    metadata:
+      name: sonar-332488
+      labels:
+        app: sonar-332488
+    spec:
+      containers:
+      - name: sonar-332488
+        image: sonarqube:6.7-alpine
+        args:
+        - -Dsonar.web.context=/debjyoti/sonarqube
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 50m
+            memory: 1024Mi
+          limits:
+            cpu: 1000m
+            memory: 2048Mi
+        volumeMounts:
+        - mountPath: "/opt/sonarqube/data/"
+          name: sonar-data
+        - mountPath: "/opt/sonarqube/extensions/"
+          name: sonar-extensions
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+          name: sonarport
+        env:
+        - name: SONARQUBE_JDBC_USERNAME
+          value: sonar
+        - name: SONARQUBE_JDBC_PASSWORD
+          value: password
+        - name: SONARQUBE_JDBC_URL
+          value: jdbc:postgresql://sonar-postgres-332488:5432/sonar
+      volumes:
+      - name: sonar-data
+        persistentVolumeClaim:
+          claimName: sonar-data
+      - name: sonar-extensions
+        persistentVolumeClaim:
+          claimName: sonar-extensions
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sonar-332488
+  name: sonar-332488
+spec:
+  ports:
+  - port: 8100
+    targetPort: 9000
+    protocol: TCP
+    name: sonarport
+  selector:
+    app: sonar-332488
+  type: ClusterIP

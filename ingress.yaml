@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: ci-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /debjyoti/jenkins
+        backend:
+          serviceName: jenkins-332488
+          servicePort: 8081
+      - path: /debjyoti/sonarqube
+        backend:
+          serviceName: sonar-332488
+          servicePort: 8100
+      - path: /debjyoti/jira
+        backend:
+          serviceName: jira-332488
+          servicePort: 8080
+      - path: /debjyoti/app
+        backend:
+          serviceName: app-pipeline-332488
+          servicePort: 8090
