@@ -36,6 +36,12 @@ node {
 
 				echo response.successful.toString()
 				echo response.data.toString()
+
+				def comment = [ body: 'Build is successful. Please check.' ]
+				response = jiraAddComment idOrKey: issues[i].key, input: comment, site: 'JIRA'
+
+				echo response.successful.toString()
+				echo response.data.toString()
 			}
 		}
 	}
