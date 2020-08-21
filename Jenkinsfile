@@ -92,6 +92,12 @@ node {
 
 				echo response.successful.toString()
 				echo response.data.toString()
+
+				def comment = [ body: 'Static code analysis is successful. Please check.' ]
+				response = jiraAddComment idOrKey: issues[i].key, input: comment, site: 'JIRA'
+
+				echo response.successful.toString()
+				echo response.data.toString()
 			}
 		}
 	} 
@@ -152,6 +158,12 @@ node {
                         for (i = 0; i <issues.size(); i++) {
                                 def transitionInput = [ transition: [ id: 31] ]
                                 response = jiraTransitionIssue idOrKey: issues[i].key, input: transitionInput, site: 'JIRA'
+
+                                echo response.successful.toString()
+                                echo response.data.toString()
+
+                                def comment = [ body: 'Deploy to k8s is successful. Please check.' ]
+                                response = jiraAddComment idOrKey: issues[i].key, input: comment, site: 'JIRA'
 
                                 echo response.successful.toString()
                                 echo response.data.toString()
